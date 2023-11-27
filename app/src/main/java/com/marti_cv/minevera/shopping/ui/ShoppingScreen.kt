@@ -28,7 +28,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -41,7 +40,9 @@ import com.marti_cv.minevera.shopping.ui.model.IngredientModel
 @Composable
 fun ShoppingScreen(shoppingViewModel: ShoppingViewModel) {
 
+
     val showDialog by shoppingViewModel.showDialog.observeAsState(false)
+
 
     Box(
         modifier = Modifier
@@ -87,7 +88,10 @@ fun OptionButtons(modifier: Modifier = Modifier, shoppingViewModel: ShoppingView
 
 @Composable
 fun ShoppingList(shoppingViewModel: ShoppingViewModel) {
+
+
     val myShoppingItems: List<IngredientModel> = shoppingViewModel.shoppingList
+
     val lastBoughtItems: List<IngredientModel> = shoppingViewModel.boughtList
 
     Column {

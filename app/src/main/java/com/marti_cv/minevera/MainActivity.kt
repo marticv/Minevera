@@ -18,8 +18,12 @@ class MainActivity : ComponentActivity() {
 
     private val shoppingViewModel: ShoppingViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        shoppingViewModel.getItemsToBuy()
+        shoppingViewModel.getLastBoughtItems()
+
         setContent {
             MineveraTheme {
                 // A surface container using the 'background' color from the theme
