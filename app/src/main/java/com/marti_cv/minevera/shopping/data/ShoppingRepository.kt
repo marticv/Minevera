@@ -21,7 +21,8 @@ class ShoppingRepository @Inject constructor(private val ingredientDao: Ingredie
     }
 
     suspend fun deleteLastBoughtItems(lastBoughtItems:List<IngredientModel>){
-        ingredientDao.deleteLasBoughtItems(lastBoughtItems.map { it.toEntity() })
+        val entityToDeleteList: List<IngredientEntity> = lastBoughtItems.map { it.toEntity() }
+        ingredientDao.deleteLasBoughtItems(entityToDeleteList)
     }
 
 }

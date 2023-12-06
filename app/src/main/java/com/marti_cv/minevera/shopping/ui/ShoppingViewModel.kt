@@ -25,8 +25,9 @@ class ShoppingViewModel @Inject constructor(
     private val updateIngredientUseCase: UpdateIngredientUseCase,
     private val deleteLastIngredientsUseCase: DeleteLastIngredientsUseCase
 ) : ViewModel() {
+
     private val _showDialog = MutableLiveData<Boolean>()
-    val showDialog: LiveData<Boolean> = _showDialog
+    var showDialog: LiveData<Boolean> = _showDialog
 
     private val _shoppingList = mutableStateListOf<IngredientModel>()
     val shoppingList: List<IngredientModel> = _shoppingList
@@ -34,15 +35,20 @@ class ShoppingViewModel @Inject constructor(
     private val _boughtList = mutableStateListOf<IngredientModel>()
     val boughtList: List<IngredientModel> = _boughtList
 
+    init {
+        getItemsToBuy()
+        getLastBoughtItems()
+    }
 
-    fun getItemsToBuy() {
+
+    private fun getItemsToBuy() {
         viewModelScope.launch(Dispatchers.IO) {
             val ingredientList = getIngredientsToBuyUseCase()
             ingredientList.map { _shoppingList.add(it) }
         }
     }
 
-    fun getLastBoughtItems() {
+    private fun getLastBoughtItems() {
         viewModelScope.launch(Dispatchers.IO) {
             val ingredientsList = getLastBoughtIngredientsUseCase()
             ingredientsList.map { _boughtList.add(it) }
@@ -90,10 +96,11 @@ class ShoppingViewModel @Inject constructor(
     }
 
     fun onDelete() {
-        viewModelScope.launch(Dispatchers.IO) {
-            deleteLastIngredientsUseCase(_boughtList)
-        }
-        _boughtList.clear()
+        val itemsToDelete:List<IngredientModel> = _boughtList
 
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteLastIngredientsUseCase(itemsToDelete)
+            _boughtList.clear()
+        }
     }
 }

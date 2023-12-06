@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.marti_cv.minevera.shopping.ui.ShoppingScreen
 import com.marti_cv.minevera.shopping.ui.ShoppingViewModel
+import com.marti_cv.minevera.ui.AppScreen
 import com.marti_cv.minevera.ui.theme.MineveraTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,8 +21,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        shoppingViewModel.getItemsToBuy()
-        shoppingViewModel.getLastBoughtItems()
 
         setContent {
             MineveraTheme {
@@ -31,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ShoppingScreen(shoppingViewModel)
+                    AppScreen(shoppingViewModel = shoppingViewModel)
                 }
             }
         }

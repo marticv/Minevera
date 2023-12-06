@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,6 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.marti_cv.minevera.shopping.ui.model.IngredientModel
+import com.marti_cv.minevera.ui.theme.AppBackground
+import com.marti_cv.minevera.ui.theme.ButtonBackground
+import com.marti_cv.minevera.ui.theme.TextBackground
 
 @Composable
 fun ShoppingScreen(shoppingViewModel: ShoppingViewModel) {
@@ -53,7 +57,7 @@ fun ShoppingScreen(shoppingViewModel: ShoppingViewModel) {
             show = showDialog,
             onDismiss = { shoppingViewModel.onDialogClose() },
             onItemAdded = { shoppingViewModel.onItemAdded(it) })
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().background(AppBackground)) {
             ShoppingList(shoppingViewModel = shoppingViewModel)
             OptionButtons(modifier = Modifier.weight(1f), shoppingViewModel)
         }
@@ -64,22 +68,26 @@ fun ShoppingScreen(shoppingViewModel: ShoppingViewModel) {
 fun OptionButtons(modifier: Modifier = Modifier, shoppingViewModel: ShoppingViewModel) {
 
     Row() {
-        Button(onClick = { shoppingViewModel.onDelete() }, modifier.padding(8.dp)) {
+        Button(
+            onClick = { shoppingViewModel.onDelete() },
+            modifier = modifier.padding(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = ButtonBackground),
+        ) {
             Row {
-                Text(text = "Borrar")
+                Text(text = "Borrar", color = TextBackground)
                 Spacer(modifier = Modifier.size(8.dp))
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete icon")
+                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete icon", tint = TextBackground)
             }
         }
         Button(
             onClick = { shoppingViewModel.onShowSelected() },
-            modifier = modifier
-                .padding(8.dp)
+            modifier = modifier.padding(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = ButtonBackground),
         ) {
             Row {
-                Text(text = "Añadir")
+                Text(text = "Añadir", color = TextBackground)
                 Spacer(modifier = Modifier.size(8.dp))
-                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "add ")
+                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "add ", tint = TextBackground)
             }
         }
     }
