@@ -7,8 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.marti_cv.minevera.recipeList.ui.model.RecipeModel
@@ -17,18 +21,27 @@ import com.marti_cv.minevera.recipeList.ui.model.RecipeModel
 fun RecipeListScreen(recipeListViewModel: RecipeListViewModel){
 
     val recipeList= recipeListViewModel.recipeList
+    val isLoading:Boolean by recipeListViewModel.isLoading.observeAsState(initial = false)
 
     Box(modifier = Modifier.fillMaxSize()){
-        LazyColumn(){
-            items(recipeList){
-                RecipItem(recipeModel = it)
+        if(isLoading){
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center)){
+                CircularProgressIndicator()
+            }
+        }else{
+            LazyColumn(){
+                items(recipeList){
+                    RecipeItem(recipeModel = it)
+                }
             }
         }
     }
 }
 
 @Composable
-fun RecipItem(
+fun RecipeItem(
     recipeModel: RecipeModel
 ) {
     Card(
