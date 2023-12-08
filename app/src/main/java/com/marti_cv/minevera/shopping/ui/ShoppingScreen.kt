@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,37 +58,54 @@ fun ShoppingScreen(shoppingViewModel: ShoppingViewModel) {
             show = showDialog,
             onDismiss = { shoppingViewModel.onDialogClose() },
             onItemAdded = { shoppingViewModel.onItemAdded(it) })
-        Column(modifier = Modifier.fillMaxSize().background(AppBackground)) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(AppBackground)) {
             ShoppingList(shoppingViewModel = shoppingViewModel)
-            OptionButtons(modifier = Modifier.weight(1f), shoppingViewModel)
+            OptionButtons(
+                modifier = Modifier.weight(1f),
+                onClickDelete = { shoppingViewModel.onDelete() },
+                onClickAdd = { shoppingViewModel.onShowSelected() })
         }
     }
 }
 
 @Composable
-fun OptionButtons(modifier: Modifier = Modifier, shoppingViewModel: ShoppingViewModel) {
+fun OptionButtons(
+    modifier: Modifier = Modifier,
+    onClickDelete: () -> Unit,
+    onClickAdd: () -> Unit
+) {
 
     Row() {
         Button(
-            onClick = { shoppingViewModel.onDelete() },
+            onClick = { onClickDelete() },
             modifier = modifier.padding(8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = ButtonBackground),
         ) {
             Row {
                 Text(text = "Borrar", color = TextBackground)
                 Spacer(modifier = Modifier.size(8.dp))
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete icon", tint = TextBackground)
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete icon",
+                    tint = TextBackground
+                )
             }
         }
         Button(
-            onClick = { shoppingViewModel.onShowSelected() },
-            modifier = modifier.padding(8.dp),
+            onClick = { onClickAdd() },
+            modifier = modifier.padding(8.dp).testTag("add"),
             colors = ButtonDefaults.buttonColors(containerColor = ButtonBackground),
         ) {
             Row {
                 Text(text = "Añadir", color = TextBackground)
                 Spacer(modifier = Modifier.size(8.dp))
-                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "add ", tint = TextBackground)
+                Icon(
+                    imageVector = Icons.Default.ShoppingCart,
+                    contentDescription = "add ",
+                    tint = TextBackground
+                )
             }
         }
     }
@@ -181,6 +199,7 @@ fun AddItemDialog(show: Boolean, onDismiss: () -> Unit, onItemAdded: (String) ->
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color.White)
                     .padding(8.dp)
+                    .testTag("additemDialog")
             ) {
                 OutlinedTextField(
                     value = myItem,
