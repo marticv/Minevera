@@ -20,8 +20,12 @@ class MainActivity : ComponentActivity() {
 //    private val recipeListViewModel: RecipeListViewModel by viewModels()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        shoppingViewModel.getItemsToBuy()
+        shoppingViewModel.getLastBoughtItems()
 
         setContent {
             MineveraTheme {

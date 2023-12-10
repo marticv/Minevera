@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.android.dagger.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -49,16 +49,23 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+//    testOptions {
+//        unitTests {
+//            includeAndroidResources = true
+//        }
+//    }
 }
 
 dependencies {
 
-    testImplementation("junit:junit:4.12")
+    implementation("androidx.test:runner:1.5.2")
+    testImplementation("junit:junit:4.13.2")
     val hilt_version="2.47"
-    val room_version = "2.5.0"
+    val room_version = "2.6.1"
     val retrofit_version="2.9.0"
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
@@ -70,6 +77,12 @@ dependencies {
     //Dagger Hilt para inyeccion de dependencias
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    // For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
+    // ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:$hilt_version")
+
+
 
     //LiveData para corrutinas
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
@@ -91,6 +104,22 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    //Mockito
+    testImplementation ("org.mockito:mockito-core:5.8.0")
+    testImplementation ("org.mockito:mockito-inline:5.2.0")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.2.1")
+
+    //Robolecrtic
+    testImplementation("org.robolectric:robolectric:4.11.1")
+    //Hamcrest
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    // Kotlin extensions for androidx.test.core
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    // Kotlin extensions for androidx.test.ext.junit
+    testImplementation("androidx.test.ext:junit-ktx:1.1.5")
+
 }
 
 // Allow references to generated code

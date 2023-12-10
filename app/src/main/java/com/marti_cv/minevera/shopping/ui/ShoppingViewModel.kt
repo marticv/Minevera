@@ -35,20 +35,20 @@ class ShoppingViewModel @Inject constructor(
     private val _boughtList = mutableStateListOf<IngredientModel>()
     val boughtList: List<IngredientModel> = _boughtList
 
-    init {
-        getItemsToBuy()
-        getLastBoughtItems()
-    }
+//    init {
+//        getItemsToBuy()
+//        getLastBoughtItems()
+//    }
 
 
-    private fun getItemsToBuy() {
+    fun getItemsToBuy() {
         viewModelScope.launch(Dispatchers.IO) {
             val ingredientList = getIngredientsToBuyUseCase()
             ingredientList.map { _shoppingList.add(it) }
         }
     }
 
-    private fun getLastBoughtItems() {
+    fun getLastBoughtItems() {
         viewModelScope.launch(Dispatchers.IO) {
             val ingredientsList = getLastBoughtIngredientsUseCase()
             ingredientsList.map { _boughtList.add(it) }
@@ -96,7 +96,7 @@ class ShoppingViewModel @Inject constructor(
     }
 
     fun onDelete() {
-        val itemsToDelete:List<IngredientModel> = _boughtList
+        val itemsToDelete: List<IngredientModel> = _boughtList
 
         viewModelScope.launch(Dispatchers.IO) {
             deleteLastIngredientsUseCase(itemsToDelete)
