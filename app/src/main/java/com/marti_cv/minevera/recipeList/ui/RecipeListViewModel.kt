@@ -35,5 +35,4 @@ class RecipeListViewModel @Inject constructor(private val getRecipesUseCase: Get
             _isLoading.value=false
         }
     }
-
 }

@@ -6,7 +6,5 @@ import javax.inject.Inject
 
 class RecipesRepository @Inject constructor(private val api:RecipeService) {
 
-    suspend fun getRecipes():List<RecipeModel>{
-         return api.getRecipes()
-    }
+    suspend fun getRecipes():List<RecipeModel> =api.getRecipes().map { it.toModel() }
 }

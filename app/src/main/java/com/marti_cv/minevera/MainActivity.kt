@@ -8,24 +8,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.marti_cv.minevera.shopping.ui.ShoppingScreen
-import com.marti_cv.minevera.shopping.ui.ShoppingViewModel
+import com.marti_cv.minevera.recipeList.ui.RecipeListScreen
+import com.marti_cv.minevera.recipeList.ui.RecipeListViewModel
 import com.marti_cv.minevera.ui.theme.MineveraTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val shoppingViewModel: ShoppingViewModel by viewModels()
-//    private val recipeListViewModel: RecipeListViewModel by viewModels()
+//    private val shoppingViewModel: ShoppingViewModel by viewModels()
+    private val recipeListViewModel: RecipeListViewModel by viewModels()
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        shoppingViewModel.getItemsToBuy()
-        shoppingViewModel.getLastBoughtItems()
+//        shoppingViewModel.getItemsToBuy()
+//        shoppingViewModel.getLastBoughtItems()
 
         setContent {
             MineveraTheme {
@@ -34,8 +34,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ShoppingScreen(shoppingViewModel = shoppingViewModel)
-                    //AppScreen(shoppingViewModel = shoppingViewModel, recipeListViewModel = recipeListViewModel)
+//                    ShoppingScreen(shoppingViewModel = shoppingViewModel)
+                    RecipeListScreen(recipeListViewModel = recipeListViewModel)
+//                    AppScreen(shoppingViewModel = shoppingViewModel, recipeListViewModel = recipeListViewModel)
                 }
             }
         }
