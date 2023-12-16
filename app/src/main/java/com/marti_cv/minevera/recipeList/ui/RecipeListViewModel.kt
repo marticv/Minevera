@@ -35,4 +35,13 @@ class RecipeListViewModel @Inject constructor(private val getRecipesUseCase: Get
             _isLoading.value=false
         }
     }
+
+    fun onFavSelected(recipeModel: RecipeModel) {
+        val index = _recipeList.indexOf(recipeModel)
+        //creamos un objeto nuevo modificandolo, sino no se recompone la vista
+        _recipeList[index] = _recipeList[index].let {
+            it.copy(isFavourite =  !it.isFavourite)
+        }
+    }
+
 }

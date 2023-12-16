@@ -3,6 +3,7 @@ package com.marti_cv.minevera.recipeList.core.network
 import com.marti_cv.minevera.recipeList.ui.model.RecipeModel
 
 data class RecipeNetwork(
+    val recipeId:String,
     val recipeName: String,
     val ingredients: ArrayList<String>,
     val isVegan: Boolean,
@@ -12,6 +13,7 @@ data class RecipeNetwork(
 ) {
     fun toModel(): RecipeModel {
         return RecipeModel(
+            this.recipeId,
             this.recipeName,
             this.ingredients,
             this.isVegan,
