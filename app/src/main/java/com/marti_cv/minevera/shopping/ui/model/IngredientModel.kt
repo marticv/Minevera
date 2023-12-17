@@ -1,6 +1,6 @@
 package com.marti_cv.minevera.shopping.ui.model
 
-import com.marti_cv.minevera.shopping.data.IngredientEntity
+import com.marti_cv.minevera.shopping.data.ShoppingItemEntity
 
 data class IngredientModel(
     val id: Int = System.currentTimeMillis().hashCode(),
@@ -9,8 +9,8 @@ data class IngredientModel(
     var isBought: Boolean = false
 ) {
 
-    fun toEntity(): IngredientEntity {
-        return IngredientEntity(
+    fun toEntity(): ShoppingItemEntity {
+        return ShoppingItemEntity(
             this.id,
             this.itemName,
             if (this.toBuy) {

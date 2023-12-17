@@ -5,24 +5,24 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ShoppingRepository @Inject constructor(private val ingredientDao: IngredientDao) {
+class ShoppingRepository @Inject constructor(private val shoppingItemDao: ShoppingItemDao) {
 
     suspend fun getIngredientsToBuy(): List<IngredientModel> =
-        ingredientDao.getItemsToBuy().map{it.toModel()}
+        shoppingItemDao.getItemsToBuy().map{it.toModel()}
     suspend fun ingredientsBought(): List<IngredientModel> =
-        ingredientDao.getLastItemsBought().map { items -> items.toModel()  }
+        shoppingItemDao.getLastItemsBought().map { items -> items.toModel()  }
 
     suspend fun addItem(ingredientModel: IngredientModel) {
-        ingredientDao.addItem(ingredientModel.toEntity())
+        shoppingItemDao.addItem(ingredientModel.toEntity())
     }
 
     suspend fun modifyItem(ingredientModel: IngredientModel) {
-        ingredientDao.updateItem(ingredientModel.toEntity())
+        shoppingItemDao.updateItem(ingredientModel.toEntity())
     }
 
     suspend fun deleteLastBoughtItems(lastBoughtItems:List<IngredientModel>){
-        val entityToDeleteList: List<IngredientEntity> = lastBoughtItems.map { it.toEntity() }
-        ingredientDao.deleteLasBoughtItems(entityToDeleteList)
+        val entityToDeleteList: List<ShoppingItemEntity> = lastBoughtItems.map { it.toEntity() }
+        shoppingItemDao.deleteLasBoughtItems(entityToDeleteList)
     }
 
 }

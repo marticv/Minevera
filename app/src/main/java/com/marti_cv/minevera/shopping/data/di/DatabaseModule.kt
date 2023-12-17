@@ -2,8 +2,9 @@ package com.marti_cv.minevera.shopping.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.marti_cv.minevera.shopping.data.IngredientDao
-import com.marti_cv.minevera.shopping.data.ShoppingDatabase
+import com.marti_cv.minevera.recipeList.data.RecipeDao
+import com.marti_cv.minevera.shopping.data.MiNeveraDatabase
+import com.marti_cv.minevera.shopping.data.ShoppingItemDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,13 +18,18 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    fun provideIngredientDao(shoppingDatabase: ShoppingDatabase):IngredientDao{
-        return  shoppingDatabase.ingredientDao()
+    fun provideShoppingItemDao(miNeveraDatabase: MiNeveraDatabase):ShoppingItemDao{
+        return  miNeveraDatabase.shoppingItemDao()
+    }
+
+    @Provides
+    fun provideRecipeDao(miNeveraDatabase: MiNeveraDatabase):RecipeDao{
+        return  miNeveraDatabase.recipeDao()
     }
 
     @Provides
     @Singleton
-    fun provideShoppingDatabase(@ApplicationContext appContext: Context): ShoppingDatabase{
-        return Room.databaseBuilder(appContext,ShoppingDatabase::class.java,"ShoppingDatabase").build()
+    fun provideMiNeveraDatabase(@ApplicationContext appContext: Context): MiNeveraDatabase{
+        return Room.databaseBuilder(appContext,MiNeveraDatabase::class.java,"MiNeveraDatabase").build()
     }
 }

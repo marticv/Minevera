@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.marti_cv.minevera.shopping.ui.model.IngredientModel
 
 @Entity
-data class IngredientEntity(
+data class ShoppingItemEntity(
     @PrimaryKey
     val id: Int,
     val itemName: String,
